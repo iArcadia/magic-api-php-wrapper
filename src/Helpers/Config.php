@@ -80,7 +80,8 @@ class Config
      */
     public static function initialize(array $options = null): array
     {
-        $GLOBALS['MAPW_CONFIG'] = self::DEFAULT;
+        $configVarName = self::getConfigGlobalVarName();
+        $GLOBALS[$configVarName] = self::DEFAULT;
         
         if ($options)
         {
@@ -90,7 +91,7 @@ class Config
             }
         }
         
-        return $GLOBALS['MAPW_CONFIG'];
+        return $GLOBALS[$configVarName];
     }
     
     /**
@@ -105,7 +106,8 @@ class Config
      */
     public static function get(string $config = null)
     {
-        $result = $GLOBALS['MAPW_CONFIG'];
+        $configVarName = self::getConfigGlobalVarName();
+        $result = $GLOBALS[$configVarName];
         
         if ($config)
         {
@@ -143,6 +145,7 @@ class Config
      */
     public static function set(string $config, $value): array
     {
+        $configVarName = self::getConfigGlobalVarName();
         $path = explode('.', $config);
         
         if (sizeof($path) === 1) { $path = explode('/', $config); }
@@ -150,7 +153,7 @@ class Config
         if (sizeof($path) === 1) { $path = explode('->', $config); }
         
         $keys = $path;
-        $e = "\$GLOBALS['MAPW_CONFIG']";
+        $e = "\$GLOBALS[$configVarName]";
         
         if (!empty($keys))
         {
@@ -182,4 +185,7 @@ class Config
         
         return $GLOBALS['MAPW_CONFIG'];
     }
+    
+    private static function getConfigGlobalVarName() { return 'MAPW_CONFIG'; }
+    private static function getInstanceGlobalVarName() { return 'MAPW_INSTANCE'; }
 }
