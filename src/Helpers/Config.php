@@ -186,6 +186,6 @@ class Config
         return $GLOBALS['MAPW_CONFIG'];
     }
     
-    private static function getConfigGlobalVarName() { return 'MAPW_CONFIG'; }
-    private static function getInstanceGlobalVarName() { return 'MAPW_INSTANCE'; }
+    public static function getConfigGlobalVarName() { return 'MAPW_CONFIG'; }
+    public static function getInstanceGlobalVarName() { return 'MAPW_INSTANCE'; }
 }

@@ -23,7 +23,8 @@ if (!function_exists('mapw_initiliaze'))
 {
     function mapw_initialize(array $options)
     {
-        return $GLOBALS['MAPW_INSTANCE'] = new MAPW($options);
+        $instanceGlobalVarName = Config::getInstanceGlobalVarName();
+        return $GLOBALS[$instanceGlobalVarName] = new MAPW($options);
     }
 }
 
@@ -31,7 +32,8 @@ if (!function_exists('mapw_get'))
 {
     function mapw_get(string $endpoint = null, array $params = null)
     {
-        $data = $GLOBALS['MAPW_INSTANCE']->get($endpoint, $params);
+        $instanceGlobalVarName = Config::getInstanceGlobalVarName();
+        $data = $GLOBALS[$instanceGlobalVarName]->get($endpoint, $params);
         
         return $data;
     }
@@ -41,6 +43,7 @@ if (!function_exists('mapw_destroy'))
 {
     function mapw_destroy()
     {
-        unset($GLOBALS['MAPW_INSTANCE']);
+        $instanceGlobalVarName = Config::getInstanceGlobalVarName();
+        unset($GLOBALS[$instanceGlobalVarName]);
     }
 }
